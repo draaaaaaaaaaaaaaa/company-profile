@@ -20,3 +20,4 @@ Route::get('/', function () {
 
 //company
 Route::resource('/company', CompanieController::class);
+
