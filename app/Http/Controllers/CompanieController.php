@@ -77,14 +77,23 @@ class CompanieController extends Controller
         //
     }
 
+    //Edit page
+    public function editpage()
+    {
+        $company = Companie::all();
+        return view('company.edit-page', compact('company'));
+    }
+
     /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Companie  $companie
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Companie $companie)
+    public function destroy($id)
     {
-        //
+        $company = Companie::find($id);
+        $company->delete();
+        return back();
     }
 }

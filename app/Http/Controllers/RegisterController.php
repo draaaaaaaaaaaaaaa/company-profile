@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Companie;
 use App\Models\Employement_status;
+use App\Models\User;
 use Illuminate\Http\Request;
 
-class EmployementStatusController extends Controller
+class RegisterController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +16,10 @@ class EmployementStatusController extends Controller
      */
     public function index()
     {
-        $status = Employement_status::all();
-        return view('employement_status.page' , compact('status'));
+        $user = User::all();
+        $company = Companie::all();
+        $status = Employement_status::all(); 
+        return view('register.index' , compact('user','company','status'));
     }
 
     /**
@@ -36,18 +40,29 @@ class EmployementStatusController extends Controller
      */
     public function store(Request $request)
     {
-        $input = $request ->all();
-        $status = Employement_status::create($input);
-        return back();
+        $validateData = $request->validate([
+            'name' => 'required|unique:users',
+            'email' => 'required|email|unique:users',
+            'password' => 'required',
+            'gender' => 'required',
+            'marital_status' => 'required',
+            'religion' => 'required',
+            'company_id' => 'required',
+            'employement_status_id' => 'required'
+        ]);
+
+        $validateData['password'] = bcrypt($validateData['password']);
+
+        User::created($validateData); 
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Employement_status  $employement_status
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Employement_status $employement_status)
+    public function show($id)
     {
         //
     }
@@ -55,10 +70,10 @@ class EmployementStatusController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Employement_status  $employement_status
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Employement_status $employement_status)
+    public function edit($id)
     {
         //
     }
@@ -67,10 +82,10 @@ class EmployementStatusController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Employement_status  $employement_status
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Employement_status $employement_status)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -78,14 +93,11 @@ class EmployementStatusController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Employement_status  $employement_status
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        $status = Employement_status::find($id);
-        $status->delete();
-        return back();
-
+        //
     }
 }

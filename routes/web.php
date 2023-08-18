@@ -1,7 +1,9 @@
 <?php
-
-use App\Http\Controllers\CompanieController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\CompanieController;
+use App\Http\Controllers\EmployementStatusController;
+use App\Http\Controllers\RegisterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,10 +16,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 //company
 Route::resource('/company', CompanieController::class);
 
+//employee_status
+Route::resource('/status', EmployementStatusController::class );
+
+
+Route::get('/login' , [LoginController::class, 'index']);
+Route::get('/register' , [RegisterController::class, 'index']);  
+Route::post('/register' , [RegisterController::class, 'store']);  
