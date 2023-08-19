@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Companie;
 use App\Models\Employement_status;
 use App\Models\User;
+use Illuminate\Foundation\Auth\User as AuthUser;
 use Illuminate\Http\Request;
 
 class RegisterController extends Controller
@@ -53,7 +54,8 @@ class RegisterController extends Controller
 
         $validateData['password'] = bcrypt($validateData['password']);
 
-        User::created($validateData); 
+        User::create($validateData);
+       
     }
 
     /**

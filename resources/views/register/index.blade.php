@@ -10,7 +10,7 @@
         </div>
         <div class="card-body">
             <main class="form-registration w-100 m-auto">
-                <form action="" method="post">
+                <form action="/register" method="post">
                     @csrf
                     <div class="row">
                         <div class="col-xl-12 mb-4">
@@ -102,8 +102,9 @@
 
 
 
-                        <button class="btn btn-primary w-100 py-2" type="submit">Sign in</button>
+
                     </div>
+                    <button class="btn btn-primary w-100 py-2" type="submit">Sign in</button>
                 </form>
             </main>
         </div>
